@@ -11,9 +11,11 @@ public class SimpleCalculatorActivity extends AppCompatActivity
 {
 
     TextView editText;
-    double numberOne;
-    double numberTwo;
-    char operation;
+    double numberOne = 0;
+    double numberTwo = 0;
+    boolean secondDigit= false;
+    boolean dotPressed=false;
+    char operation = ' ';
     int flag=0;
 
 
@@ -53,9 +55,22 @@ public class SimpleCalculatorActivity extends AppCompatActivity
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editText.append(".");
+                String text = editText.getText().toString();
+                if(!dotPressed) {
+                    if(!secondDigit)
+                    {
+                        if(validateNumber()) return;
+                    }
+                    editText.append(".");
+                    dotPressed = true;
+                }
             }
         });
+    }
+
+    private boolean validateNumber()
+    {
+        return editText.toString().contains(".");
     }
 
     private void onClickPlus()
@@ -64,12 +79,22 @@ public class SimpleCalculatorActivity extends AppCompatActivity
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println(editText.getText());
-                if(operation != ' ' && flag!= 0) Calculate();
-                numberOne = Double.parseDouble(editText.getText().toString());
-                operation = '+';
-                editText.append(" + ");
-                flag = 1;
+
+                if (operation != ' ' ) {
+                    if(flag!=0 && secondDigit == true) {
+                        Calculate();
+                    }
+                }
+
+                if (operation != '+' && flag != 1) {
+
+                    numberOne = Double.parseDouble(editText.getText().toString());
+                    operation = '+';
+                    editText.append(" + ");
+                    dotPressed = false;
+                    flag = 1;
+                }
+
             }
         });
     }
@@ -78,6 +103,7 @@ public class SimpleCalculatorActivity extends AppCompatActivity
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(operation != ' ') secondDigit =true;
                 editText.append("1");
             }
         });
@@ -88,6 +114,7 @@ public class SimpleCalculatorActivity extends AppCompatActivity
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(operation != ' ') secondDigit =true;
                 editText.append("2");
             }
         });
@@ -98,6 +125,7 @@ public class SimpleCalculatorActivity extends AppCompatActivity
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(operation != ' ') secondDigit =true;
                 editText.append("3");
             }
         });
@@ -108,6 +136,7 @@ public class SimpleCalculatorActivity extends AppCompatActivity
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(operation != ' ') secondDigit =true;
                 editText.append("4");
             }
         });
@@ -118,6 +147,7 @@ public class SimpleCalculatorActivity extends AppCompatActivity
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(operation != ' ') secondDigit =true;
                 editText.append("5");
             }
         });
@@ -128,6 +158,7 @@ public class SimpleCalculatorActivity extends AppCompatActivity
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(operation != ' ') secondDigit =true;
                 editText.append("6");
             }
         });
@@ -138,6 +169,7 @@ public class SimpleCalculatorActivity extends AppCompatActivity
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(operation != ' ') secondDigit =true;
                 editText.append("7");
             }
         });
@@ -148,6 +180,7 @@ public class SimpleCalculatorActivity extends AppCompatActivity
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(operation != ' ') secondDigit =true;
                 editText.append("8");
             }
         });
@@ -158,6 +191,7 @@ public class SimpleCalculatorActivity extends AppCompatActivity
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(operation != ' ') secondDigit =true;
                 editText.append("9");
             }
         });
@@ -168,6 +202,7 @@ public class SimpleCalculatorActivity extends AppCompatActivity
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(operation != ' ') secondDigit =true;
                 editText.append("0");
             }
         });
@@ -190,11 +225,20 @@ public class SimpleCalculatorActivity extends AppCompatActivity
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(operation != ' ' && flag!= 0) Calculate();
-                numberOne = Double.parseDouble(editText.getText().toString());
-                operation = '-';
-                editText.append(" - ");
-                flag = 1;
+                if (operation != ' ' ) {
+                    if(flag!=0 && secondDigit == true) {
+                        Calculate();
+                    }
+                }
+
+                if (operation != '-' && flag != 1) {
+
+                    numberOne = Double.parseDouble(editText.getText().toString());
+                    operation = '-';
+                    editText.append(" - ");
+                    dotPressed = false;
+                    flag = 1;
+                }
             }
         });
     }
@@ -206,11 +250,20 @@ public class SimpleCalculatorActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
 
-                if(operation != ' ' && flag!= 0) Calculate();
-                numberOne = Double.parseDouble(editText.getText().toString());
-                operation = '*';
-                editText.append(" * ");
-                flag = 1;
+                if (operation != ' ' ) {
+                    if(flag!=0 && secondDigit == true) {
+                        Calculate();
+                    }
+                }
+
+                if (operation != '*' && flag != 1) {
+
+                    numberOne = Double.parseDouble(editText.getText().toString());
+                    operation = '*';
+                    editText.append(" * ");
+                    dotPressed = false;
+                    flag = 1;
+                }
             }
         });
     }
@@ -221,11 +274,20 @@ public class SimpleCalculatorActivity extends AppCompatActivity
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(operation != ' ' && flag!= 0) Calculate();
-                numberOne = Double.parseDouble(editText.getText().toString());
-                operation = '/';
-                editText.append(" / ");
-                flag = 1;
+                if (operation != ' ' ) {
+                    if(flag!=0 && secondDigit == true) {
+                        Calculate();
+                    }
+                }
+
+                if (operation != '/' && flag != 1) {
+
+                    numberOne = Double.parseDouble(editText.getText().toString());
+                    operation = '/';
+                    editText.append(" / ");
+                    dotPressed = false;
+                    flag = 1;
+                }
             }
         });
     }
@@ -266,6 +328,10 @@ public class SimpleCalculatorActivity extends AppCompatActivity
 
         }
         operation = ' ';
+        numberOne=0;
+        numberTwo=0;
+        flag = 2;
+        secondDigit = false;
     }
 
 
