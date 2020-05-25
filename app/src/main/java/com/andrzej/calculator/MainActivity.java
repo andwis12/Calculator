@@ -14,14 +14,24 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button button = (Button) findViewById(R.id.simpleButton);
-        button.setOnClickListener(new View.OnClickListener() {
+        Button simple = (Button) findViewById(R.id.simpleButton);
+        simple.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intentMain = new Intent(MainActivity.this ,
                         SimpleCalculatorActivity.class);
                 MainActivity.this.startActivity(intentMain);
             }
         });
+
+        Button advanced = (Button) findViewById(R.id.advancedButton);
+        advanced.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intentMain = new Intent(MainActivity.this ,
+                        AdvancedCalculatorActivity.class);
+                MainActivity.this.startActivity(intentMain);
+            }
+        });
+
 
     }
 }

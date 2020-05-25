@@ -17,9 +17,16 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="88dp"
+            android:gravity="bottom|right"
+            android:textSize="24dp" />
+
+        <TextView
             android:id="@+id/textView"
             android:layout_width="match_parent"
-            android:layout_height="95dp"
+            android:layout_height="99dp"
             android:gravity="bottom|right"
             android:textSize="36sp" />
 

@@ -7,14 +7,16 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import static java.lang.Character.isDigit;
+
 public class SimpleCalculatorActivity extends AppCompatActivity
 {
 
-    TextView editText;
+    TextView editText,numberText;
     double numberOne = 0;
     double numberTwo = 0;
     boolean secondDigit= false;
-    boolean dotPressed=false;
+    boolean cleared=false;
     char operation = ' ';
     int flag=0;
 
@@ -24,30 +26,147 @@ public class SimpleCalculatorActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.simple_calculator_layout);
         editText = (TextView) findViewById(R.id.textView);
-        setUpButtons();
+        numberText = (TextView) findViewById(R.id.textView2);
+
+        Button buttonOne = (Button) findViewById(R.id.buttonOne);
+        buttonOne.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cleared=false;
+                if(operation != ' ') secondDigit =true;
+                editText.append("1");
+            }
+        });
+
+        Button buttonTwo = (Button) findViewById(R.id.buttonTwo);
+        buttonTwo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cleared=false;
+                if(operation != ' ') secondDigit =true;
+                editText.append("2");
+            }
+        });
+
+        Button buttonThree = (Button) findViewById(R.id.buttonThree);
+        buttonThree.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cleared=false;
+                if(operation != ' ') secondDigit =true;
+                editText.append("3");
+            }
+        });
+
+        Button buttonFour = (Button) findViewById(R.id.buttonFour);
+        buttonFour.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cleared=false;
+                if(operation != ' ') secondDigit =true;
+                editText.append("4");
+            }
+        });
+
+        Button buttonFive = (Button) findViewById(R.id.buttonFive);
+        buttonFive.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cleared=false;
+                if(operation != ' ') secondDigit =true;
+                editText.append("5");
+            }
+        });
+
+        Button buttonSix = (Button) findViewById(R.id.buttonSix);
+        buttonSix.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cleared=false;
+                if(operation != ' ') secondDigit =true;
+                editText.append("6");
+            }
+        });
+
+        Button buttonSeven = (Button) findViewById(R.id.buttonSeven);
+        buttonSeven.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cleared=false;
+                if(operation != ' ') secondDigit =true;
+                editText.append("7");
+            }
+        });
+
+        Button buttonEight = (Button) findViewById(R.id.buttonEight);
+        buttonEight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cleared=false;
+                if(operation != ' ') secondDigit =true;
+                editText.append("8");
+            }
+        });
+
+        Button buttonNine = (Button) findViewById(R.id.buttonNine);
+        buttonFive.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cleared=false;
+                if(operation != ' ') secondDigit =true;
+                editText.append("9");
+            }
+        });
+
+        Button buttonZero = (Button) findViewById(R.id.buttonZero);
+        buttonFive.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cleared=false;
+                if(operation != ' ') secondDigit =true;
+                editText.append("0");
+            }
+        });
+
+        onClickCE();
+        onClickSign();
+        onClickMultiply();
+        onClickDivide();
+        onClickEquals();
+        onClickDot();
+        onClickMinus();
+        onClickPlus();
     }
 
 
-    private void setUpButtons()
-    {
-        onClickOne();
-        onClickTwo();
-        onClickThree();
-        onClickFour();
-        onClickFive();
-        onClickSix();
-        onClickSeven();
-        onClickEight();
-        onClickNine();
-        onClickZero();
 
-        onClickDot();
-        onClickPlus();
-        onClickMinus();
-        onClickDivide();
-        onClickMultiply();
-        onClickEquals();
 
+
+    private void onClickCE(){
+        Button button = (Button) findViewById(R.id.buttonCE);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               if(cleared)
+               {
+                   numberOne = 0;
+                   numberTwo = 0;
+                   secondDigit= false;
+                   cleared=false;
+                   operation = ' ';
+                   flag=0;
+                   editText.setText("");
+               }else
+               {
+                   String screen = editText.getText().toString();
+                   boolean isDigit = isDigit(screen.charAt(screen.length()-1));
+                   if(isDigit)
+                       editText.setText(screen.substring(0,screen.length()-1));
+
+                   cleared=true;
+               }
+            }
+        });
     }
 
     private void onClickDot(){
@@ -55,22 +174,46 @@ public class SimpleCalculatorActivity extends AppCompatActivity
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                cleared=false;
                 String text = editText.getText().toString();
-                if(!dotPressed) {
-                    if(!secondDigit)
-                    {
-                        if(validateNumber()) return;
-                    }
-                    editText.append(".");
-                    dotPressed = true;
-                }
+                if(text.contains(".")) return;
+                editText.append(".");
             }
         });
     }
 
-    private boolean validateNumber()
+    private void onClickEquals()
     {
-        return editText.toString().contains(".");
+        cleared=false;
+        Button button = (Button) findViewById(R.id.buttonEquals);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calculate();
+            }
+        });
+    }
+
+    private void onClickSign()
+    {
+        cleared=false;
+        Button button = (Button) findViewById(R.id.buttonSign);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String currentNumber = editText.getText().toString();
+                if(currentNumber.length() > 0)
+                {
+                    if(currentNumber.equals("0")) return;
+
+                    if(currentNumber.charAt(0) == '-')
+                        currentNumber = currentNumber.substring(1);
+                    else currentNumber = "-" + currentNumber;
+
+                    editText.setText(currentNumber);
+                }
+            }
+        });
     }
 
     private void onClickPlus()
@@ -79,7 +222,7 @@ public class SimpleCalculatorActivity extends AppCompatActivity
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                cleared=false;
                 if (operation != ' ' ) {
                     if(flag!=0 && secondDigit == true) {
                         Calculate();
@@ -90,137 +233,18 @@ public class SimpleCalculatorActivity extends AppCompatActivity
 
                     numberOne = Double.parseDouble(editText.getText().toString());
                     operation = '+';
-                    editText.append(" + ");
-                    dotPressed = false;
+                    numberText.setText(editText.getText()+" + ");
+                    editText.setText("");
                     flag = 1;
                 }
 
             }
         });
     }
-    private void onClickOne() {
-        Button button = (Button) findViewById(R.id.buttonOne);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(operation != ' ') secondDigit =true;
-                editText.append("1");
-            }
-        });
-    }
-
-    private void onClickTwo() {
-        Button button = (Button) findViewById(R.id.buttonTwo);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(operation != ' ') secondDigit =true;
-                editText.append("2");
-            }
-        });
-    }
-
-    private void onClickThree() {
-        Button button = (Button) findViewById(R.id.buttonThree);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(operation != ' ') secondDigit =true;
-                editText.append("3");
-            }
-        });
-    }
-
-    private void onClickFour() {
-        Button button = (Button) findViewById(R.id.buttonFour);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(operation != ' ') secondDigit =true;
-                editText.append("4");
-            }
-        });
-    }
-
-    private void onClickFive() {
-        Button button = (Button) findViewById(R.id.buttonFive);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(operation != ' ') secondDigit =true;
-                editText.append("5");
-            }
-        });
-    }
-
-    private void onClickSix() {
-        Button button = (Button) findViewById(R.id.buttonSix);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(operation != ' ') secondDigit =true;
-                editText.append("6");
-            }
-        });
-    }
-
-    private void onClickSeven() {
-        Button button = (Button) findViewById(R.id.buttonSeven);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(operation != ' ') secondDigit =true;
-                editText.append("7");
-            }
-        });
-    }
-
-    private void onClickEight() {
-        Button button = (Button) findViewById(R.id.buttonEight);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(operation != ' ') secondDigit =true;
-                editText.append("8");
-            }
-        });
-    }
-
-    private void onClickNine() {
-        Button button = (Button) findViewById(R.id.buttonNine);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(operation != ' ') secondDigit =true;
-                editText.append("9");
-            }
-        });
-    }
-
-    private void onClickZero() {
-        Button button = (Button) findViewById(R.id.buttonZero);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(operation != ' ') secondDigit =true;
-                editText.append("0");
-            }
-        });
-    }
-
-    private void onClickEquals()
-    {
-        Button button = (Button) findViewById(R.id.buttonEquals);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calculate();
-            }
-        });
-    }
 
     private void onClickMinus()
     {
+        cleared=false;
         Button button = (Button) findViewById(R.id.buttonMinus);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -231,20 +255,28 @@ public class SimpleCalculatorActivity extends AppCompatActivity
                     }
                 }
 
-                if (operation != '-' && flag != 1) {
+                if(editText.length() == 0)
+                {
+                    editText.append("-");
+                    return;
+                }
 
+                if (operation != '-' && flag != 1) {
                     numberOne = Double.parseDouble(editText.getText().toString());
                     operation = '-';
-                    editText.append(" - ");
-                    dotPressed = false;
+                    numberText.setText(editText.getText()+" - ");
+                    editText.setText("");
                     flag = 1;
                 }
+
+
             }
         });
     }
 
     private void onClickMultiply()
     {
+        cleared=false;
         Button button = (Button) findViewById(R.id.buttonMultiply);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -260,8 +292,8 @@ public class SimpleCalculatorActivity extends AppCompatActivity
 
                     numberOne = Double.parseDouble(editText.getText().toString());
                     operation = '*';
-                    editText.append(" * ");
-                    dotPressed = false;
+                    numberText.setText(editText.getText()+" * ");
+                    editText.setText("");
                     flag = 1;
                 }
             }
@@ -270,6 +302,7 @@ public class SimpleCalculatorActivity extends AppCompatActivity
 
     private void onClickDivide()
     {
+        cleared=false;
         Button button = (Button) findViewById(R.id.buttonDivide);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -281,11 +314,10 @@ public class SimpleCalculatorActivity extends AppCompatActivity
                 }
 
                 if (operation != '/' && flag != 1) {
-
                     numberOne = Double.parseDouble(editText.getText().toString());
                     operation = '/';
-                    editText.append(" / ");
-                    dotPressed = false;
+                    numberText.setText(editText.getText()+" / ");
+                    editText.setText("");
                     flag = 1;
                 }
             }
@@ -298,30 +330,26 @@ public class SimpleCalculatorActivity extends AppCompatActivity
     {
         switch(operation) {
             case '+':
-                String res = editText.getText().toString();
-                String numbers = res.substring(res.lastIndexOf(" "));
-                numberTwo = Double.parseDouble(numbers);
+                String number = editText.getText().toString();
+                numberTwo = Double.parseDouble(number);
                 double result = numberOne + numberTwo;
                 editText.setText(Double.toString(result));
                 break;
             case '-':
-                res = editText.getText().toString();
-                numbers = res.substring(res.lastIndexOf(" "));
-                numberTwo = Double.parseDouble(numbers);
+                number = editText.getText().toString();
+                numberTwo = Double.parseDouble(number);
                 result = numberOne - numberTwo;
                 editText.setText(Double.toString(result));
                 break;
             case '*':
-                res = editText.getText().toString();
-                numbers = res.substring(res.lastIndexOf(" "));
-                numberTwo = Double.parseDouble(numbers);
+                number = editText.getText().toString();
+                numberTwo = Double.parseDouble(number);
                 result = numberOne * numberTwo;
                 editText.setText(Double.toString(result));
                 break;
             case '/':
-                res = editText.getText().toString();
-                numbers = res.substring(res.lastIndexOf(" "));
-                numberTwo = Double.parseDouble(numbers);
+                number = editText.getText().toString();
+                numberTwo = Double.parseDouble(number);
                 result = numberOne / numberTwo;
                 editText.setText(Double.toString(result));
                 break;
@@ -332,8 +360,6 @@ public class SimpleCalculatorActivity extends AppCompatActivity
         numberTwo=0;
         flag = 2;
         secondDigit = false;
+        numberText.setText("");
     }
-
-
-
 }
