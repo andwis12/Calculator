@@ -123,12 +123,14 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
         onClickLog();
         onClickLn();
         onClickPowY();
+        onClickPercent();
         onClickCE();
+        onClickAC();
     }
 
     private void printNumber(String number)
     {
-        if(function == "") {
+        if(function == "" || function =="x^y") {
             cleared = false;
             if (operation != ' ') secondDigit = true;
             editText.append(number);
@@ -149,18 +151,7 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
         return true;
     }
 
-    private void onClickSinus()
-    {
-        Button button = (Button) findViewById(R.id.buttonAdvSin);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(!validateFunction()) return;
-                editText.setText("sin("+editText.getText().toString()+")");
-                function = "sin";
-            }
-        });
-    }
+
 
     private void onClickCE(){
         Button button = (Button) findViewById(R.id.buttonAdvCE);
@@ -176,6 +167,8 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
                     operation = ' ';
                     flag=0;
                     editText.setText("");
+                    numberText.setText("");
+                    function="";
                 }else
                 {
                     if(editText.getText().toString().length() == 0) return;
@@ -187,13 +180,56 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
         });
     }
 
+    private void onClickAC(){
+        Button button = (Button) findViewById(R.id.buttonAdvAC);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                numberOne = 0;
+                numberTwo = 0;
+                secondDigit= false;
+                cleared=false;
+                operation = ' ';
+                flag=0;
+                editText.setText("");
+                numberText.setText("");
+                function="";
+            }
+        });
+    }
+
+    private void onClickPercent()
+    {
+        Button button = (Button) findViewById(R.id.buttonAdvSin);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+
+        });
+    }
+
+    private void onClickSinus()
+    {
+        Button button = (Button) findViewById(R.id.buttonAdvSin);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!validateFunction()) return;
+                editText.setText("sin("+editText.getText().toString()+")");
+                function = "sin";
+            }
+        });
+    }
+
     private void onClickCosinus()
     {
         Button button = (Button) findViewById(R.id.buttonAdvCos);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                validateFunction();
+                if(!validateFunction()) return;
                 editText.setText("cos("+editText.getText().toString()+")");
                 function = "cos";
             }
@@ -219,7 +255,7 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                validateFunction();
+                if(!validateFunction()) return;
                 editText.setText("sqrt("+editText.getText().toString()+")");
                 function = "sqrt";
             }
@@ -232,7 +268,7 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                validateFunction();
+                if(!validateFunction()) return;
                 editText.setText(editText.getText().toString()+"^2");
                 function = "x^2";
             }
@@ -248,6 +284,49 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
                 String text = editText.getText().toString();
                 if(text.contains(".")) return;
                 editText.append(".");
+            }
+        });
+    }
+
+    private void onClickLog()
+    {
+        cleared=false;
+        Button button = (Button) findViewById(R.id.buttonAdvLog);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!validateFunction()) return;
+                editText.setText("log("+editText.getText().toString()+")");
+                function = "log";
+            }
+        });
+
+    }
+
+    private void onClickLn()
+    {
+        cleared=false;
+        Button button = (Button) findViewById(R.id.buttonAdvLn);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!validateFunction()) return;
+                editText.setText("ln("+editText.getText().toString()+")");
+                function = "ln";
+            }
+        });
+    }
+
+    private void onClickPowY()
+    {
+        cleared=false;
+        Button button = (Button) findViewById(R.id.buttonAdvPowerY);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!validateFunction()) return;
+                editText.setText(editText.getText().toString()+"^");
+                function = "x^y";
             }
         });
     }
@@ -395,48 +474,7 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
         });
     }
 
-    private void onClickLog()
-    {
-        cleared=false;
-        Button button = (Button) findViewById(R.id.buttonAdvLog);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                validateFunction();
-                editText.setText("log("+editText.getText().toString()+")");
-                function = "log";
-            }
-        });
 
-    }
-
-    private void onClickLn()
-    {
-        cleared=false;
-        Button button = (Button) findViewById(R.id.buttonAdvLn);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                validateFunction();
-                editText.setText("ln("+editText.getText().toString()+")");
-                function = "ln";
-            }
-        });
-    }
-
-    private void onClickPowY()
-    {
-        cleared=false;
-        Button button = (Button) findViewById(R.id.buttonAdvPowerY);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                validateFunction();
-                editText.setText(editText.getText().toString()+"^");
-                function = "x^y";
-            }
-        });
-    }
 
     private void calculateAdvanced()
     {
@@ -483,6 +521,7 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
 
     private void Calculate(char op)
     {
+        if(editText.getText().toString().length() == 1 && editText.getText().toString().charAt(0) == '-') return;
 
         if(function != "") calculateAdvanced();
         else {
