@@ -129,6 +129,7 @@ public class SimpleCalculatorActivity extends AppCompatActivity
         });
 
         onClickCE();
+        onClickAC();
         onClickSign();
         onClickMultiply();
         onClickDivide();
@@ -148,26 +149,41 @@ public class SimpleCalculatorActivity extends AppCompatActivity
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               if(cleared)
-               {
-                   numberOne = 0;
-                   numberTwo = 0;
-                   secondDigit= false;
-                   cleared=false;
-                   operation = ' ';
-                   flag=0;
-                   editText.setText("");
-               }else
-               {
-                   if(editText.getText().toString().length() == 0) return;
+                if(cleared)
+                {
+                    numberOne = 0;
+                    numberTwo = 0;
+                    secondDigit= false;
+                    cleared=false;
+                    operation = ' ';
+                    flag=0;
+                    editText.setText("");
+                    numberText.setText("");
+                }else
+                {
+                    cleared=true;
+                    if(editText.getText().toString().length() == 0) return;
+                    String screen = editText.getText().toString();
+                    editText.setText(screen.substring(0,screen.length()-1));
 
-                   String screen = editText.getText().toString();
-                   boolean isDigit = isDigit(screen.charAt(screen.length()-1));
-                   if(isDigit)
-                       editText.setText(screen.substring(0,screen.length()-1));
+                }
+            }
+        });
+    }
 
-                   cleared=true;
-               }
+    private void onClickAC(){
+        Button button = (Button) findViewById(R.id.buttonAdvAC);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                numberOne = 0;
+                numberTwo = 0;
+                secondDigit= false;
+                cleared=false;
+                operation = ' ';
+                flag=0;
+                editText.setText("");
+                numberText.setText("");
             }
         });
     }

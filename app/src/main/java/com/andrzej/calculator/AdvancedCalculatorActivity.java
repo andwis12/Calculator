@@ -171,10 +171,10 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
                     function="";
                 }else
                 {
+                    cleared=true;
                     if(editText.getText().toString().length() == 0) return;
                     String screen = editText.getText().toString();
                     editText.setText(screen.substring(0,screen.length()-1));
-                    cleared=true;
                 }
             }
         });
@@ -200,13 +200,13 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
 
     private void onClickPercent()
     {
-        Button button = (Button) findViewById(R.id.buttonAdvSin);
+        Button button = (Button) findViewById(R.id.buttonPercent);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                double number = Double.parseDouble(editText.getText().toString())*0.01;
+                editText.setText(Double.toString(number));
             }
-
         });
     }
 
@@ -401,6 +401,7 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (operation != ' ' ) {
                     if(flag!=0 && secondDigit == true) {
+                        if(function != "") calculateAdvanced();
                         Calculate(operation);
                     }
                 }
@@ -412,7 +413,8 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
                 }
 
                 if (operation != '-' && flag != 1) {
-                    numberOne = Double.parseDouble(editText.getText().toString());
+                    if(function != "") calculateAdvanced();
+                    else numberOne = Double.parseDouble(editText.getText().toString());
                     operation = '-';
                     numberText.setText(editText.getText()+" - ");
                     editText.setText("");
@@ -434,13 +436,14 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
 
                 if (operation != ' ' ) {
                     if(flag!=0 && secondDigit == true) {
+                        if(function != "") calculateAdvanced();
                         Calculate(operation);
                     }
                 }
 
                 if (operation != '*' && flag != 1) {
-
-                    numberOne = Double.parseDouble(editText.getText().toString());
+                    if(function != "") calculateAdvanced();
+                    else numberOne = Double.parseDouble(editText.getText().toString());
                     operation = '*';
                     numberText.setText(editText.getText()+" * ");
                     editText.setText("");
@@ -459,12 +462,14 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (operation != ' ' ) {
                     if(flag!=0 && secondDigit == true) {
+                        if(function != "") calculateAdvanced();
                         Calculate(operation);
                     }
                 }
 
                 if (operation != '/' && flag != 1) {
-                    numberOne = Double.parseDouble(editText.getText().toString());
+                    if(function != "") calculateAdvanced();
+                    else numberOne = Double.parseDouble(editText.getText().toString());
                     operation = '/';
                     numberText.setText(editText.getText()+" / ");
                     editText.setText("");
