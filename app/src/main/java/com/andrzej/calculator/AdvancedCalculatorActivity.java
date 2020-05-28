@@ -17,6 +17,7 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
     boolean secondDigit= false;
     boolean cleared=false;
     char operation = ' ';
+    String function = "";
     int flag=0;
 
 
@@ -27,103 +28,83 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
         editText = (TextView) findViewById(R.id.textView);
         numberText = (TextView) findViewById(R.id.textView2);
 
-        Button buttonOne = (Button) findViewById(R.id.buttonOne);
+        Button buttonOne = (Button) findViewById(R.id.buttonAdvOne);
         buttonOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cleared=false;
-                if(operation != ' ') secondDigit =true;
-                editText.append("1");
+                printNumber("1");
             }
         });
 
-        Button buttonTwo = (Button) findViewById(R.id.buttonTwo);
+        Button buttonTwo = (Button) findViewById(R.id.buttonAdvTwo);
         buttonTwo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cleared=false;
-                if(operation != ' ') secondDigit =true;
-                editText.append("2");
+                printNumber("2");
             }
         });
 
-        Button buttonThree = (Button) findViewById(R.id.buttonThree);
+        Button buttonThree = (Button) findViewById(R.id.buttonAdvThree);
         buttonThree.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cleared=false;
-                if(operation != ' ') secondDigit =true;
-                editText.append("3");
+                printNumber("3");
             }
         });
 
-        Button buttonFour = (Button) findViewById(R.id.buttonFour);
+        Button buttonFour = (Button) findViewById(R.id.buttonAdvFour);
         buttonFour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cleared=false;
-                if(operation != ' ') secondDigit =true;
-                editText.append("4");
+                printNumber("4");
             }
         });
 
-        Button buttonFive = (Button) findViewById(R.id.buttonFive);
+        Button buttonFive = (Button) findViewById(R.id.buttonAdvFive);
         buttonFive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cleared=false;
-                if(operation != ' ') secondDigit =true;
-                editText.append("5");
+                printNumber("5");
             }
         });
 
-        Button buttonSix = (Button) findViewById(R.id.buttonSix);
+        Button buttonSix = (Button) findViewById(R.id.buttonAdvSix);
         buttonSix.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cleared=false;
-                if(operation != ' ') secondDigit =true;
-                editText.append("6");
+                printNumber("6");
             }
         });
 
-        Button buttonSeven = (Button) findViewById(R.id.buttonSeven);
+        Button buttonSeven = (Button) findViewById(R.id.buttonAdvSeven);
         buttonSeven.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cleared=false;
-                if(operation != ' ') secondDigit =true;
-                editText.append("7");
+                printNumber("7");
             }
         });
 
-        Button buttonEight = (Button) findViewById(R.id.buttonEight);
+        Button buttonEight = (Button) findViewById(R.id.buttonAdvEight);
         buttonEight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cleared=false;
-                if(operation != ' ') secondDigit =true;
-                editText.append("8");
+                printNumber("8");
             }
         });
 
-        Button buttonNine = (Button) findViewById(R.id.buttonNine);
-        buttonFive.setOnClickListener(new View.OnClickListener() {
+        Button buttonNine = (Button) findViewById(R.id.buttonAdvNine);
+        buttonNine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cleared=false;
-                if(operation != ' ') secondDigit =true;
-                editText.append("9");
+                printNumber("9");
             }
         });
 
-        Button buttonZero = (Button) findViewById(R.id.buttonZero);
-        buttonFive.setOnClickListener(new View.OnClickListener() {
+        Button buttonZero = (Button) findViewById(R.id.buttonAdvZero);
+        buttonZero.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cleared=false;
-                if(operation != ' ') secondDigit =true;
-                editText.append("0");
+                printNumber("0");
             }
         });
 
@@ -139,70 +120,127 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
         onClickTangens();
         onClickSqrt();
         onClickPower();
+        onClickLog();
+        onClickLn();
+        onClickPowY();
+        onClickCE();
+    }
+
+    private void printNumber(String number)
+    {
+        if(function == "") {
+            cleared = false;
+            if (operation != ' ') secondDigit = true;
+            editText.append(number);
+        }
+    }
+
+    private boolean validateFunction()
+    {
+        if(editText.getText().toString().length() == 0) return false;
+
+        if(editText.getText().toString().length() == 1 && editText.getText().toString().charAt(0) == '-') return false;
+
+        if(function!="") return false;
+        cleared=false;
+        if(!secondDigit) numberOne = Double.parseDouble(editText.getText().toString());
+        else numberTwo = Double.parseDouble(editText.getText().toString());
+
+        return true;
     }
 
     private void onClickSinus()
     {
-        Button button = (Button) findViewById(R.id.buttonSin);
+        Button button = (Button) findViewById(R.id.buttonAdvSin);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cleared=false;
-                Calculate('s');
+                if(!validateFunction()) return;
+                editText.setText("sin("+editText.getText().toString()+")");
+                function = "sin";
+            }
+        });
+    }
+
+    private void onClickCE(){
+        Button button = (Button) findViewById(R.id.buttonAdvCE);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(cleared)
+                {
+                    numberOne = 0;
+                    numberTwo = 0;
+                    secondDigit= false;
+                    cleared=false;
+                    operation = ' ';
+                    flag=0;
+                    editText.setText("");
+                }else
+                {
+                    if(editText.getText().toString().length() == 0) return;
+                    String screen = editText.getText().toString();
+                    editText.setText(screen.substring(0,screen.length()-1));
+                    cleared=true;
+                }
             }
         });
     }
 
     private void onClickCosinus()
     {
-        Button button = (Button) findViewById(R.id.buttonCos);
+        Button button = (Button) findViewById(R.id.buttonAdvCos);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cleared=false;
-                Calculate('c');
+                validateFunction();
+                editText.setText("cos("+editText.getText().toString()+")");
+                function = "cos";
             }
         });
     }
 
     private void onClickTangens()
     {
-        Button button = (Button) findViewById(R.id.buttonTan);
+        Button button = (Button) findViewById(R.id.buttonAdvTan);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cleared=false;
-                Calculate('t');
+                validateFunction();
+                editText.setText("tg("+editText.getText().toString()+")");
+                function = "tg";
             }
         });
     }
 
     private void onClickSqrt()
     {
-        Button button = (Button) findViewById(R.id.buttonSqrt);
+        Button button = (Button) findViewById(R.id.buttonAdvSqrt);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cleared=false;
-                Calculate('r');
+                validateFunction();
+                editText.setText("sqrt("+editText.getText().toString()+")");
+                function = "sqrt";
             }
         });
     }
 
     private void onClickPower()
     {
-        Button button = (Button) findViewById(R.id.buttonPower2);
+        Button button = (Button) findViewById(R.id.buttonAdvPower2);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cleared=false;
-                Calculate('p');
+                validateFunction();
+                editText.setText(editText.getText().toString()+"^2");
+                function = "x^2";
             }
         });
     }
 
     private void onClickDot(){
-        Button button = (Button) findViewById(R.id.buttonDot);
+        Button button = (Button) findViewById(R.id.buttonAdvDot);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -217,7 +255,7 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
     private void onClickEquals()
     {
         cleared=false;
-        Button button = (Button) findViewById(R.id.buttonEquals);
+        Button button = (Button) findViewById(R.id.buttonAdvEquals);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -229,7 +267,7 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
     private void onClickSign()
     {
         cleared=false;
-        Button button = (Button) findViewById(R.id.buttonSign);
+        Button button = (Button) findViewById(R.id.buttonAdvSign);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -250,20 +288,21 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
 
     private void onClickPlus()
     {
-        Button button = (Button) findViewById(R.id.buttonPlus);
+        Button button = (Button) findViewById(R.id.buttonAdvPlus);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 cleared=false;
                 if (operation != ' ' ) {
                     if(flag!=0 && secondDigit == true) {
+                        if(function != "") calculateAdvanced();
                         Calculate(operation);
                     }
                 }
 
                 if (operation != '+' && flag != 1) {
-
-                    numberOne = Double.parseDouble(editText.getText().toString());
+                    if(function != "") calculateAdvanced();
+                    else numberOne = Double.parseDouble(editText.getText().toString());
                     operation = '+';
                     numberText.setText(editText.getText()+" + ");
                     editText.setText("");
@@ -277,7 +316,7 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
     private void onClickMinus()
     {
         cleared=false;
-        Button button = (Button) findViewById(R.id.buttonMinus);
+        Button button = (Button) findViewById(R.id.buttonAdvMinus);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -309,7 +348,7 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
     private void onClickMultiply()
     {
         cleared=false;
-        Button button = (Button) findViewById(R.id.buttonMultiply);
+        Button button = (Button) findViewById(R.id.buttonAdvMultiply);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -335,7 +374,7 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
     private void onClickDivide()
     {
         cleared=false;
-        Button button = (Button) findViewById(R.id.buttonDivide);
+        Button button = (Button) findViewById(R.id.buttonAdvDivide);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -356,65 +395,120 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
         });
     }
 
+    private void onClickLog()
+    {
+        cleared=false;
+        Button button = (Button) findViewById(R.id.buttonAdvLog);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                validateFunction();
+                editText.setText("log("+editText.getText().toString()+")");
+                function = "log";
+            }
+        });
 
+    }
+
+    private void onClickLn()
+    {
+        cleared=false;
+        Button button = (Button) findViewById(R.id.buttonAdvLn);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                validateFunction();
+                editText.setText("ln("+editText.getText().toString()+")");
+                function = "ln";
+            }
+        });
+    }
+
+    private void onClickPowY()
+    {
+        cleared=false;
+        Button button = (Button) findViewById(R.id.buttonAdvPowerY);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                validateFunction();
+                editText.setText(editText.getText().toString()+"^");
+                function = "x^y";
+            }
+        });
+    }
+
+    private void calculateAdvanced()
+    {
+        switch(function)
+        {
+            case "log":
+                if(!secondDigit) numberOne = Math.log10(numberOne);
+                else numberTwo = Math.log10(numberTwo);
+                break;
+            case "ln":
+                if(!secondDigit) numberOne = Math.log(numberOne);
+                else numberTwo = Math.log(numberTwo);
+                break;
+            case "x^y":
+                int id = editText.getText().toString().indexOf("^");
+                int length = editText.getText().length();
+                double index = Double.parseDouble(editText.getText().toString().substring(id + 1, length));
+                if(!secondDigit) numberOne = Math.pow(numberOne,index);
+                else numberTwo = Math.pow(numberTwo,index);
+                break;
+            case "x^2":
+                if(!secondDigit) numberOne = Math.pow(numberOne,2);
+                else numberTwo = Math.pow(numberTwo,2);
+                break;
+            case "sin":
+                if(!secondDigit) numberOne = Math.sin(numberOne);
+                else numberTwo = Math.sin(numberTwo);
+                break;
+            case "cos":
+                if(!secondDigit) numberOne = Math.cos(numberOne);
+                else numberTwo = Math.cos(numberTwo);
+                break;
+            case "tg":
+                if(!secondDigit) numberOne = Math.tan(numberOne);
+                else numberTwo = Math.tan(numberTwo);
+                break;
+            case "sqrt":
+                if(!secondDigit) numberOne = Math.sqrt(numberOne);
+                else numberTwo = Math.sqrt(numberTwo);
+                break;
+        }
+        function = "";
+    }
 
     private void Calculate(char op)
     {
+
+        if(function != "") calculateAdvanced();
+        else {
+            String number = editText.getText().toString();
+            numberTwo = Double.parseDouble(number);
+        }
+
         switch(op) {
             case '+':
-                String number = editText.getText().toString();
-                numberTwo = Double.parseDouble(number);
                 double result = numberOne + numberTwo;
                 editText.setText(Double.toString(result));
                 break;
             case '-':
-                number = editText.getText().toString();
-                numberTwo = Double.parseDouble(number);
                 result = numberOne - numberTwo;
                 editText.setText(Double.toString(result));
                 break;
             case '*':
-                number = editText.getText().toString();
-                numberTwo = Double.parseDouble(number);
                 result = numberOne * numberTwo;
                 editText.setText(Double.toString(result));
                 break;
             case '/':
-                number = editText.getText().toString();
-                numberTwo = Double.parseDouble(number);
                 result = numberOne / numberTwo;
                 editText.setText(Double.toString(result));
                 break;
-            case 's':
-                number = editText.getText().toString();
-                numberTwo = Double.parseDouble(number);
-                numberTwo = Math.sin(Math.toRadians(numberTwo));
-                editText.setText(Double.toString(numberTwo));
-                return;
-            case 'c':
-                number = editText.getText().toString();
-                numberTwo = Double.parseDouble(number);
-                numberTwo = Math.cos(Math.toRadians(numberTwo));
-                editText.setText(Double.toString(numberTwo));
-                return;
-            case 't':
-                number = editText.getText().toString();
-                numberTwo = Double.parseDouble(number);
-                numberTwo = Math.tan(Math.toRadians(numberTwo));
-                editText.setText(Double.toString(numberTwo));
-                return;
-            case 'r':
-                number = editText.getText().toString();
-                numberTwo = Double.parseDouble(number);
-                numberTwo = Math.sqrt(numberTwo);
-                editText.setText(Double.toString(numberTwo));
-                return;
-            case 'p':
-                number = editText.getText().toString();
-                numberTwo = Double.parseDouble(number);
-                numberTwo = Math.pow(numberTwo,2);
-                editText.setText(Double.toString(numberTwo));
-                return;
+            case ' ':
+                editText.setText(Double.toString(numberOne));
 
         }
         operation = ' ';
@@ -423,5 +517,34 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
         flag = 2;
         secondDigit = false;
         numberText.setText("");
+        function = "";
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putString("editText",editText.getText().toString());
+        outState.putString("numberText",numberText.getText().toString());
+        outState.putString("function",function);
+        outState.putDouble("numberOne",numberOne);
+        outState.putDouble("numberTwo",numberTwo);
+        outState.putBoolean("secondDigit",secondDigit);
+        outState.putBoolean("cleared",cleared);
+        outState.putChar("operation",operation);
+        outState.putInt("flag",flag);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected  void onRestoreInstanceState(Bundle savedInstanceState)
+    {
+        editText.setText(savedInstanceState.getString("editText"));
+        numberText.setText(savedInstanceState.getString("numberText"));
+        numberOne = savedInstanceState.getDouble("numberOne");
+        numberTwo = savedInstanceState.getDouble("numberTwo");
+        function = savedInstanceState.getString("function");
+        secondDigit = savedInstanceState.getBoolean("secondDigit");
+        cleared = savedInstanceState.getBoolean("cleared");
+        operation = savedInstanceState.getChar("operation");
+        flag = savedInstanceState.getInt("flag");
     }
 }

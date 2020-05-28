@@ -19,14 +19,14 @@
         <TextView
             android:id="@+id/textView2"
             android:layout_width="match_parent"
-            android:layout_height="78dp"
+            android:layout_height="55dp"
             android:gravity="bottom|right"
             android:textSize="24dp" />
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="match_parent"
-            android:layout_height="85dp"
+            android:layout_height="wrap_content"
             android:gravity="bottom|right"
             android:textSize="36sp" />
 
@@ -37,7 +37,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/buttonCE"
+                android:id="@+id/buttonAdvCE"
                 android:layout_width="105dp"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
@@ -45,7 +45,7 @@
                 android:textSize="24sp" />
 
             <Button
-                android:id="@+id/buttonSign"
+                android:id="@+id/buttonAdvSign"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="2"
@@ -53,7 +53,7 @@
                 android:textSize="24sp" />
 
             <Button
-                android:id="@+id/buttonAC"
+                android:id="@+id/buttonAdvAC"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="2"
@@ -68,7 +68,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/buttonOne"
+                android:id="@+id/buttonAdvOne"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -76,7 +76,7 @@
                 android:textSize="24sp" />
 
             <Button
-                android:id="@+id/buttonTwo"
+                android:id="@+id/buttonAdvTwo"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -84,7 +84,7 @@
                 android:textSize="24sp" />
 
             <Button
-                android:id="@+id/buttonThree"
+                android:id="@+id/buttonAdvThree"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -92,7 +92,7 @@
                 android:textSize="24sp" />
 
             <Button
-                android:id="@+id/buttonPlus"
+                android:id="@+id/buttonAdvPlus"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -107,7 +107,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/buttonFour"
+                android:id="@+id/buttonAdvFour"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -115,7 +115,7 @@
                 android:textSize="24sp" />
 
             <Button
-                android:id="@+id/buttonFive"
+                android:id="@+id/buttonAdvFive"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -123,7 +123,7 @@
                 android:textSize="24sp" />
 
             <Button
-                android:id="@+id/buttonSix"
+                android:id="@+id/buttonAdvSix"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -131,7 +131,7 @@
                 android:textSize="24sp" />
 
             <Button
-                android:id="@+id/buttonMinus"
+                android:id="@+id/buttonAdvMinus"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -146,7 +146,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/buttonSeven"
+                android:id="@+id/buttonAdvSeven"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -154,7 +154,7 @@
                 android:textSize="24sp" />
 
             <Button
-                android:id="@+id/buttonEight"
+                android:id="@+id/buttonAdvEight"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -162,7 +162,7 @@
                 android:textSize="24sp" />
 
             <Button
-                android:id="@+id/buttonNine"
+                android:id="@+id/buttonAdvNine"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -170,7 +170,7 @@
                 android:textSize="24sp" />
 
             <Button
-                android:id="@+id/buttonDivide"
+                android:id="@+id/buttonAdvDivide"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -185,7 +185,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/buttonDot"
+                android:id="@+id/buttonAdvDot"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -193,7 +193,7 @@
                 android:textSize="24sp" />
 
             <Button
-                android:id="@+id/buttonZero"
+                android:id="@+id/buttonAdvZero"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -201,7 +201,7 @@
                 android:textSize="24sp" />
 
             <Button
-                android:id="@+id/buttonEquals"
+                android:id="@+id/buttonAdvEquals"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -209,7 +209,7 @@
                 android:textSize="24sp" />
 
             <Button
-                android:id="@+id/buttonMultiply"
+                android:id="@+id/buttonAdvMultiply"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

@@ -32,6 +32,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button about = (Button) findViewById(R.id.aboutButton);
+        about.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intentMain = new Intent(MainActivity.this ,
+                        AboutActivity.class);
+                MainActivity.this.startActivity(intentMain);
+            }
+        });
 
+        Button exit = (Button) findViewById(R.id.exitButton);
+        exit.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                finish();
+                System.exit(0);
+            }
+        });
     }
 }

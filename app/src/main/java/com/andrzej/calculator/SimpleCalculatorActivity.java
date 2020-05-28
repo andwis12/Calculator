@@ -28,7 +28,7 @@ public class SimpleCalculatorActivity extends AppCompatActivity
         editText = (TextView) findViewById(R.id.textView);
         numberText = (TextView) findViewById(R.id.textView2);
 
-        Button buttonOne = (Button) findViewById(R.id.buttonOne);
+        Button buttonOne = (Button) findViewById(R.id.buttonAdvOne);
         buttonOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -38,7 +38,7 @@ public class SimpleCalculatorActivity extends AppCompatActivity
             }
         });
 
-        Button buttonTwo = (Button) findViewById(R.id.buttonTwo);
+        Button buttonTwo = (Button) findViewById(R.id.buttonAdvTwo);
         buttonTwo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,7 +48,7 @@ public class SimpleCalculatorActivity extends AppCompatActivity
             }
         });
 
-        Button buttonThree = (Button) findViewById(R.id.buttonThree);
+        Button buttonThree = (Button) findViewById(R.id.buttonAdvThree);
         buttonThree.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,7 +58,7 @@ public class SimpleCalculatorActivity extends AppCompatActivity
             }
         });
 
-        Button buttonFour = (Button) findViewById(R.id.buttonFour);
+        Button buttonFour = (Button) findViewById(R.id.buttonAdvFour);
         buttonFour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,7 +68,7 @@ public class SimpleCalculatorActivity extends AppCompatActivity
             }
         });
 
-        Button buttonFive = (Button) findViewById(R.id.buttonFive);
+        Button buttonFive = (Button) findViewById(R.id.buttonAdvFive);
         buttonFive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,7 +78,7 @@ public class SimpleCalculatorActivity extends AppCompatActivity
             }
         });
 
-        Button buttonSix = (Button) findViewById(R.id.buttonSix);
+        Button buttonSix = (Button) findViewById(R.id.buttonAdvSix);
         buttonSix.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,7 +88,7 @@ public class SimpleCalculatorActivity extends AppCompatActivity
             }
         });
 
-        Button buttonSeven = (Button) findViewById(R.id.buttonSeven);
+        Button buttonSeven = (Button) findViewById(R.id.buttonAdvSeven);
         buttonSeven.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,7 +98,7 @@ public class SimpleCalculatorActivity extends AppCompatActivity
             }
         });
 
-        Button buttonEight = (Button) findViewById(R.id.buttonEight);
+        Button buttonEight = (Button) findViewById(R.id.buttonAdvEight);
         buttonEight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,8 +108,8 @@ public class SimpleCalculatorActivity extends AppCompatActivity
             }
         });
 
-        Button buttonNine = (Button) findViewById(R.id.buttonNine);
-        buttonFive.setOnClickListener(new View.OnClickListener() {
+        Button buttonNine = (Button) findViewById(R.id.buttonAdvNine);
+        buttonNine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 cleared=false;
@@ -118,8 +118,8 @@ public class SimpleCalculatorActivity extends AppCompatActivity
             }
         });
 
-        Button buttonZero = (Button) findViewById(R.id.buttonZero);
-        buttonFive.setOnClickListener(new View.OnClickListener() {
+        Button buttonZero = (Button) findViewById(R.id.buttonAdvZero);
+        buttonZero.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 cleared=false;
@@ -142,8 +142,9 @@ public class SimpleCalculatorActivity extends AppCompatActivity
 
 
 
+
     private void onClickCE(){
-        Button button = (Button) findViewById(R.id.buttonCE);
+        Button button = (Button) findViewById(R.id.buttonAdvCE);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -158,6 +159,8 @@ public class SimpleCalculatorActivity extends AppCompatActivity
                    editText.setText("");
                }else
                {
+                   if(editText.getText().toString().length() == 0) return;
+
                    String screen = editText.getText().toString();
                    boolean isDigit = isDigit(screen.charAt(screen.length()-1));
                    if(isDigit)
@@ -170,7 +173,7 @@ public class SimpleCalculatorActivity extends AppCompatActivity
     }
 
     private void onClickDot(){
-        Button button = (Button) findViewById(R.id.buttonDot);
+        Button button = (Button) findViewById(R.id.buttonAdvDot);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -185,7 +188,7 @@ public class SimpleCalculatorActivity extends AppCompatActivity
     private void onClickEquals()
     {
         cleared=false;
-        Button button = (Button) findViewById(R.id.buttonEquals);
+        Button button = (Button) findViewById(R.id.buttonAdvEquals);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -197,7 +200,7 @@ public class SimpleCalculatorActivity extends AppCompatActivity
     private void onClickSign()
     {
         cleared=false;
-        Button button = (Button) findViewById(R.id.buttonSign);
+        Button button = (Button) findViewById(R.id.buttonAdvSign);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -218,7 +221,7 @@ public class SimpleCalculatorActivity extends AppCompatActivity
 
     private void onClickPlus()
     {
-        Button button = (Button) findViewById(R.id.buttonPlus);
+        Button button = (Button) findViewById(R.id.buttonAdvPlus);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -245,7 +248,7 @@ public class SimpleCalculatorActivity extends AppCompatActivity
     private void onClickMinus()
     {
         cleared=false;
-        Button button = (Button) findViewById(R.id.buttonMinus);
+        Button button = (Button) findViewById(R.id.buttonAdvMinus);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -277,7 +280,7 @@ public class SimpleCalculatorActivity extends AppCompatActivity
     private void onClickMultiply()
     {
         cleared=false;
-        Button button = (Button) findViewById(R.id.buttonMultiply);
+        Button button = (Button) findViewById(R.id.buttonAdvMultiply);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -303,7 +306,7 @@ public class SimpleCalculatorActivity extends AppCompatActivity
     private void onClickDivide()
     {
         cleared=false;
-        Button button = (Button) findViewById(R.id.buttonDivide);
+        Button button = (Button) findViewById(R.id.buttonAdvDivide);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -361,5 +364,31 @@ public class SimpleCalculatorActivity extends AppCompatActivity
         flag = 2;
         secondDigit = false;
         numberText.setText("");
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putString("editText",editText.getText().toString());
+        outState.putString("numberText",numberText.getText().toString());
+        outState.putDouble("numberOne",numberOne);
+        outState.putDouble("numberTwo",numberTwo);
+        outState.putBoolean("secondDigit",secondDigit);
+        outState.putBoolean("cleared",cleared);
+        outState.putChar("operation",operation);
+        outState.putInt("flag",flag);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected  void onRestoreInstanceState(Bundle savedInstanceState)
+    {
+        editText.setText(savedInstanceState.getString("editText"));
+        numberText.setText(savedInstanceState.getString("numberText"));
+        numberOne = savedInstanceState.getDouble("numberOne");
+        numberTwo = savedInstanceState.getDouble("numberTwo");
+        secondDigit = savedInstanceState.getBoolean("secondDigit");
+        cleared = savedInstanceState.getBoolean("cleared");
+        operation = savedInstanceState.getChar("operation");
+        flag = savedInstanceState.getInt("flag");
     }
 }
