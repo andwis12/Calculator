@@ -1,11 +1,15 @@
 package com.andrzej.calculator;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.text.DecimalFormat;
 
 import static java.lang.Character.isDigit;
 
@@ -19,6 +23,7 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
     char operation = ' ';
     String function = "";
     int flag=0;
+    DecimalFormat decimalFormat = new DecimalFormat("#.##########");
 
 
     @Override
@@ -160,15 +165,7 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(cleared)
                 {
-                    numberOne = 0;
-                    numberTwo = 0;
-                    secondDigit= false;
-                    cleared=false;
-                    operation = ' ';
-                    flag=0;
-                    editText.setText("");
-                    numberText.setText("");
-                    function="";
+                    clear();
                 }else
                 {
                     cleared=true;
@@ -185,17 +182,22 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                numberOne = 0;
-                numberTwo = 0;
-                secondDigit= false;
-                cleared=false;
-                operation = ' ';
-                flag=0;
-                editText.setText("");
-                numberText.setText("");
-                function="";
+                clear();
             }
         });
+    }
+
+    private void clear()
+    {
+        numberOne = 0;
+        numberTwo = 0;
+        secondDigit= false;
+        cleared=false;
+        operation = ' ';
+        flag=0;
+        editText.setText("");
+        numberText.setText("");
+        function="";
     }
 
     private void onClickPercent()
@@ -204,8 +206,9 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!validateFunction()) return;
                 double number = Double.parseDouble(editText.getText().toString())*0.01;
-                editText.setText(Double.toString(number));
+                editText.setText(decimalFormat.format(number));
             }
         });
     }
@@ -242,7 +245,7 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                validateFunction();
+                if(!validateFunction()) return;
                 editText.setText("tg("+editText.getText().toString()+")");
                 function = "tg";
             }
@@ -488,10 +491,20 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
             case "log":
                 if(!secondDigit) numberOne = Math.log10(numberOne);
                 else numberTwo = Math.log10(numberTwo);
+                if(Double.isInfinite(numberOne) || Double.isNaN(numberOne) || Double.isInfinite(numberTwo) || Double.isNaN(numberTwo))
+                {
+                    Toast.makeText(getApplicationContext(), "Wrong input", Toast.LENGTH_SHORT).show();
+                    clear();
+                }
                 break;
             case "ln":
                 if(!secondDigit) numberOne = Math.log(numberOne);
                 else numberTwo = Math.log(numberTwo);
+                if(Double.isInfinite(numberOne) || Double.isNaN(numberOne) || Double.isInfinite(numberTwo) || Double.isNaN(numberTwo))
+                {
+                    Toast.makeText(getApplicationContext(), "Wrong input", Toast.LENGTH_SHORT).show();
+                    clear();
+                }
                 break;
             case "x^y":
                 int id = editText.getText().toString().indexOf("^");
@@ -519,6 +532,11 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
             case "sqrt":
                 if(!secondDigit) numberOne = Math.sqrt(numberOne);
                 else numberTwo = Math.sqrt(numberTwo);
+                if(Double.isInfinite(numberOne) || Double.isNaN(numberOne) || Double.isInfinite(numberTwo) || Double.isNaN(numberTwo))
+                {
+                    Toast.makeText(getApplicationContext(), "Wrong input", Toast.LENGTH_SHORT).show();
+                    clear();
+                }
                 break;
         }
         function = "";
@@ -526,6 +544,8 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
 
     private void Calculate(char op)
     {
+        if(editText.getText().toString().length() == 0) return;
+
         if(editText.getText().toString().length() == 1 && editText.getText().toString().charAt(0) == '-') return;
 
         if(function != "") calculateAdvanced();
@@ -534,25 +554,33 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
             numberTwo = Double.parseDouble(number);
         }
 
+
+
+
         switch(op) {
             case '+':
                 double result = numberOne + numberTwo;
-                editText.setText(Double.toString(result));
+                editText.setText(decimalFormat.format(result));
                 break;
             case '-':
                 result = numberOne - numberTwo;
-                editText.setText(Double.toString(result));
+                editText.setText(decimalFormat.format(result));
                 break;
             case '*':
                 result = numberOne * numberTwo;
-                editText.setText(Double.toString(result));
+                editText.setText(decimalFormat.format(result));
                 break;
             case '/':
+                if (numberTwo == 0) {
+                    Toast.makeText(getApplicationContext(), "Division by 0 not allowed", Toast.LENGTH_SHORT).show();
+                    clear();
+                    return;
+                }
                 result = numberOne / numberTwo;
-                editText.setText(Double.toString(result));
+                editText.setText(decimalFormat.format(result));
                 break;
             case ' ':
-                editText.setText(Double.toString(numberOne));
+                editText.setText(decimalFormat.format(numberOne));
 
         }
         operation = ' ';

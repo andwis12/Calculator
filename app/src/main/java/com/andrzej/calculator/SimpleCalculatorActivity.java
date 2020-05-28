@@ -1,11 +1,15 @@
 package com.andrzej.calculator;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.text.DecimalFormat;
 
 import static java.lang.Character.isDigit;
 
@@ -19,6 +23,8 @@ public class SimpleCalculatorActivity extends AppCompatActivity
     boolean cleared=false;
     char operation = ' ';
     int flag=0;
+    DecimalFormat decimalFormat = new DecimalFormat("#.##########");
+
 
 
     @Override
@@ -32,9 +38,7 @@ public class SimpleCalculatorActivity extends AppCompatActivity
         buttonOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cleared=false;
-                if(operation != ' ') secondDigit =true;
-                editText.append("1");
+                printNumber("1");
             }
         });
 
@@ -42,9 +46,7 @@ public class SimpleCalculatorActivity extends AppCompatActivity
         buttonTwo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cleared=false;
-                if(operation != ' ') secondDigit =true;
-                editText.append("2");
+                printNumber("2");
             }
         });
 
@@ -52,9 +54,7 @@ public class SimpleCalculatorActivity extends AppCompatActivity
         buttonThree.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cleared=false;
-                if(operation != ' ') secondDigit =true;
-                editText.append("3");
+                printNumber("3");
             }
         });
 
@@ -62,9 +62,7 @@ public class SimpleCalculatorActivity extends AppCompatActivity
         buttonFour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cleared=false;
-                if(operation != ' ') secondDigit =true;
-                editText.append("4");
+                printNumber("4");
             }
         });
 
@@ -72,9 +70,7 @@ public class SimpleCalculatorActivity extends AppCompatActivity
         buttonFive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cleared=false;
-                if(operation != ' ') secondDigit =true;
-                editText.append("5");
+                printNumber("5");
             }
         });
 
@@ -82,9 +78,7 @@ public class SimpleCalculatorActivity extends AppCompatActivity
         buttonSix.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cleared=false;
-                if(operation != ' ') secondDigit =true;
-                editText.append("6");
+                printNumber("6");
             }
         });
 
@@ -92,9 +86,7 @@ public class SimpleCalculatorActivity extends AppCompatActivity
         buttonSeven.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cleared=false;
-                if(operation != ' ') secondDigit =true;
-                editText.append("7");
+                printNumber("7");
             }
         });
 
@@ -102,9 +94,7 @@ public class SimpleCalculatorActivity extends AppCompatActivity
         buttonEight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cleared=false;
-                if(operation != ' ') secondDigit =true;
-                editText.append("8");
+                printNumber("8");
             }
         });
 
@@ -112,9 +102,7 @@ public class SimpleCalculatorActivity extends AppCompatActivity
         buttonNine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cleared=false;
-                if(operation != ' ') secondDigit =true;
-                editText.append("9");
+                printNumber("9");
             }
         });
 
@@ -122,9 +110,7 @@ public class SimpleCalculatorActivity extends AppCompatActivity
         buttonZero.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cleared=false;
-                if(operation != ' ') secondDigit =true;
-                editText.append("0");
+                printNumber("0");
             }
         });
 
@@ -141,7 +127,12 @@ public class SimpleCalculatorActivity extends AppCompatActivity
 
 
 
-
+    private void printNumber(String number)
+    {
+        cleared = false;
+        if (operation != ' ') secondDigit = true;
+        editText.append(number);
+    }
 
 
     private void onClickCE(){
@@ -151,14 +142,7 @@ public class SimpleCalculatorActivity extends AppCompatActivity
             public void onClick(View v) {
                 if(cleared)
                 {
-                    numberOne = 0;
-                    numberTwo = 0;
-                    secondDigit= false;
-                    cleared=false;
-                    operation = ' ';
-                    flag=0;
-                    editText.setText("");
-                    numberText.setText("");
+                    clear();
                 }else
                 {
                     cleared=true;
@@ -176,16 +160,21 @@ public class SimpleCalculatorActivity extends AppCompatActivity
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                numberOne = 0;
-                numberTwo = 0;
-                secondDigit= false;
-                cleared=false;
-                operation = ' ';
-                flag=0;
-                editText.setText("");
-                numberText.setText("");
+                clear();
             }
         });
+    }
+
+    private void clear()
+    {
+        numberOne = 0;
+        numberTwo = 0;
+        secondDigit= false;
+        cleared=false;
+        operation = ' ';
+        flag=0;
+        editText.setText("");
+        numberText.setText("");
     }
 
     private void onClickDot(){
@@ -196,7 +185,9 @@ public class SimpleCalculatorActivity extends AppCompatActivity
                 cleared=false;
                 String text = editText.getText().toString();
                 if(text.contains(".")) return;
-                editText.append(".");
+
+                if(editText.getText().toString().length() == 0) editText.append("0.");
+                else editText.append(".");
             }
         });
     }
@@ -352,26 +343,42 @@ public class SimpleCalculatorActivity extends AppCompatActivity
                 String number = editText.getText().toString();
                 numberTwo = Double.parseDouble(number);
                 double result = numberOne + numberTwo;
-                editText.setText(Double.toString(result));
+                if (Double.isInfinite(result) || Double.isNaN(result)) editText.setText("Aaaaaaaaaaa");
+                    else{
+                editText.setText(decimalFormat.format(result));
+                }
                 break;
             case '-':
                 number = editText.getText().toString();
                 numberTwo = Double.parseDouble(number);
                 result = numberOne - numberTwo;
-                editText.setText(Double.toString(result));
+                editText.setText(decimalFormat.format(result));
                 break;
             case '*':
                 number = editText.getText().toString();
                 numberTwo = Double.parseDouble(number);
                 result = numberOne * numberTwo;
-                editText.setText(Double.toString(result));
+                if (Double.isInfinite(result) || Double.isNaN(result)) {
+                    Toast.makeText(getApplicationContext(), "Wrong input", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    editText.setText(decimalFormat.format(result));
+                }
                 break;
             case '/':
                 number = editText.getText().toString();
                 numberTwo = Double.parseDouble(number);
+                if (numberTwo == 0) {
+                    Toast.makeText(getApplicationContext(), "Division by 0 not allowed", Toast.LENGTH_SHORT).show();
+                    clear();
+                    return;
+                }
                 result = numberOne / numberTwo;
-                editText.setText(Double.toString(result));
+                editText.setText(decimalFormat.format(result));
                 break;
+            case ' ':
+                editText.setText(decimalFormat.format(numberOne));
+
 
         }
         operation = ' ';
